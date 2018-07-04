@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,5 +27,11 @@ namespace UwpApp
         {
             this.InitializeComponent();
         }
-    }
+
+		async void Button_Click(object sender, RoutedEventArgs e)
+		{
+			await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+		}
+
+	}
 }

@@ -42,7 +42,7 @@
 				  Wide310x150Logo="Images\Wide310x150Logo.png" />
 			</uap:VisualElements>
 			<Extensions>
-				<desktop:Extension Category="windows.fullTrustProcess" Executable="App.WPF\App.WPF.exe" />
+				<desktop:Extension Category="windows.fullTrustProcess" Executable="WpfApp\WpfApp.exe" />
 			</Extensions>
 		</Application>
 	</Applications>
