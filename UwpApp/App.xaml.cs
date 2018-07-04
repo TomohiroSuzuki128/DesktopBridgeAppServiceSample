@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,11 +24,14 @@ namespace UwpApp
     /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// 単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
-        ///最初の行であるため、main() または WinMain() と論理的に等価です。
-        /// </summary>
-        public App()
+		AppServiceConnection _appServiceConnection;
+		BackgroundTaskDeferral _appServiceDeferral;
+
+		/// <summary>
+		/// 単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
+		///最初の行であるため、main() または WinMain() と論理的に等価です。
+		/// </summary>
+		public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -96,5 +101,48 @@ namespace UwpApp
             //TODO: アプリケーションの状態を保存してバックグラウンドの動作があれば停止します
             deferral.Complete();
         }
-    }
+
+
+		protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+		{
+			base.OnBackgroundActivated(args);
+
+			if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails appService)
+			{
+				_appServiceDeferral = args.TaskInstance.GetDeferral();
+				args.TaskInstance.Canceled += TaskInstance_Canceled;
+				_appServiceConnection = appService.AppServiceConnection;
+				_appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+				_appServiceConnection.ServiceClosed += AppServiceConnection_ServiceClosed;
+			}
+		}
+
+		void AppServiceConnection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
+		{
+			_appServiceDeferral?.Complete();
+		}
+
+		async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+		{
+			var d = args.GetDeferral();
+
+			var message = args.Request.Message;
+			var input = message["Input"] as string;
+
+			await MainPage.Current?.SetTextAsync(input);
+			await args.Request.SendResponseAsync(new ValueSet
+			{
+				["Result"] = $"Accept: {DateTime.Now}"
+			});
+			d.Complete();
+		}
+
+
+		void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+		{
+			_appServiceDeferral?.Complete();
+		}
+
+
+	}
 }

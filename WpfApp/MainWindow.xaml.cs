@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.AppService;
 
 namespace WpfApp
 {
@@ -20,6 +22,9 @@ namespace WpfApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		AppServiceConnection _appServiceConnection;
+
+
 		public MainWindow()
 		{
 			InitializeComponent();
