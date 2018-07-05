@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,11 +24,14 @@ namespace UwpXamFormsApp.UWP
     /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        public App()
+		AppServiceConnection _appServiceConnection;
+		BackgroundTaskDeferral _appServiceDeferral;
+
+		/// <summary>
+		/// Initializes the singleton application object.  This is the first line of authored code
+		/// executed, and as such is the logical equivalent of main() or WinMain().
+		/// </summary>
+		public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -97,5 +102,58 @@ namespace UwpXamFormsApp.UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-    }
+
+
+
+		protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+		{
+			base.OnBackgroundActivated(args);
+
+			if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails appService)
+			{
+				// 必要な処理が終了する前に、AppServiceのアクティブ化が終了しないように
+				// これから非同期処理を行うので、その完了報告を待つようにとシステムに知らせる。
+				_appServiceDeferral = args.TaskInstance.GetDeferral();
+
+				args.TaskInstance.Canceled += TaskInstance_Canceled;
+				_appServiceConnection = appService.AppServiceConnection;
+				_appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+				_appServiceConnection.ServiceClosed += AppServiceConnection_ServiceClosed;
+			}
+		}
+
+		void AppServiceConnection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
+		{
+			// システムに完了を通知する
+			_appServiceDeferral?.Complete();
+		}
+
+		async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+		{
+			var deferral = args.GetDeferral();
+
+			var message = args.Request.Message;
+			var input = message["Input"] as string;
+
+			//await MainPage.Current?.SetTextAsync(input);
+
+			// ホスト側より応答確認送信する
+			await args.Request.SendResponseAsync(new ValueSet
+			{
+				["Result"] = $"Accept: {DateTime.Now}"
+			});
+
+			// システムに完了を通知する
+			deferral.Complete();
+		}
+
+
+		void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+		{
+			// システムに完了を通知する
+			_appServiceDeferral?.Complete();
+		}
+
+
+	}
 }

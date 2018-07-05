@@ -14,24 +14,27 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UwpXamFormsApp.Services;
+using UwpXamFormsApp.UWP.Services;
 
 namespace UwpXamFormsApp.UWP
 {
-    public sealed partial class MainPage
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
+	public sealed partial class MainPage
+	{
+		public MainPage()
+		{
+			this.InitializeComponent();
 
-            LoadApplication(new UwpXamFormsApp.App(new UwpInitializer()));
-        }
-    }
+			LoadApplication(new UwpXamFormsApp.App(new UwpInitializer()));
+		}
+	}
 
-    public class UwpInitializer : IPlatformInitializer
-    {
-        public void RegisterTypes(IContainerRegistry container)
-        {
+	public class UwpInitializer : IPlatformInitializer
+	{
+		public void RegisterTypes(IContainerRegistry containerRegistry)
+		{
+			containerRegistry.Register<IAppService, AppService>();
+		}
+	}
 
-        }
-    }
 }
