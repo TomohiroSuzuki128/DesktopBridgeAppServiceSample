@@ -25,7 +25,6 @@ namespace WpfApp
 	{
 		AppServiceConnection _appServiceConnection;
 
-
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -33,9 +32,15 @@ namespace WpfApp
 
 		async void Button_Click(object sender, RoutedEventArgs e)
 		{
+			// AppServiceについてはここに情報がある
+			// https://docs.microsoft.com/ja-jp/windows/uwp/launch-resume/how-to-create-and-consume-an-app-service
+
 			if (_appServiceConnection == null)
 			{
+				// IDisposable なのでメモリリークするので製品版では注意が必要
 				_appServiceConnection = new AppServiceConnection();
+				
+				// Here, we use the app service name defined in the app service provider's Package.appxmanifest file in the <Extension> section.
 				_appServiceConnection.AppServiceName = "InProcessAppService";
 				_appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
 				var r = await _appServiceConnection.OpenAsync();

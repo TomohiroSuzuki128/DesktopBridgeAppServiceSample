@@ -109,7 +109,10 @@ namespace UwpApp
 
 			if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails appService)
 			{
+				// 必要な処理が終了する前に、AppServiceのアクティブ化が終了しないように
+				// これから非同期処理を行うので、その完了報告を待つようにとシステムに知らせる。
 				_appServiceDeferral = args.TaskInstance.GetDeferral();
+
 				args.TaskInstance.Canceled += TaskInstance_Canceled;
 				_appServiceConnection = appService.AppServiceConnection;
 				_appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
@@ -119,30 +122,35 @@ namespace UwpApp
 
 		void AppServiceConnection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
 		{
+			// システムに完了を通知する
 			_appServiceDeferral?.Complete();
 		}
 
 		async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
 		{
-			var d = args.GetDeferral();
+			var deferral = args.GetDeferral();
 
 			var message = args.Request.Message;
 			var input = message["Input"] as string;
 
 			await MainPage.Current?.SetTextAsync(input);
+
+			// ホスト側より応答確認送信する
 			await args.Request.SendResponseAsync(new ValueSet
 			{
 				["Result"] = $"Accept: {DateTime.Now}"
 			});
-			d.Complete();
+
+			// システムに完了を通知する
+			deferral.Complete();
 		}
 
 
 		void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
 		{
+			// システムに完了を通知する
 			_appServiceDeferral?.Complete();
 		}
-
 
 	}
 }

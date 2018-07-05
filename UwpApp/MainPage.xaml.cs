@@ -39,7 +39,6 @@ namespace UwpApp
 			await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
 		}
 
-
 		public async Task SetTextAsync(string text)
 		{
 			void setText()
