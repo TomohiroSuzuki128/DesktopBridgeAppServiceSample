@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
+using Windows.Foundation.Collections;
 
 namespace WpfApp
 {
@@ -29,5 +30,29 @@ namespace WpfApp
 		{
 			InitializeComponent();
 		}
+
+		async void Button_Click(object sender, RoutedEventArgs e)
+		{
+			if (_appServiceConnection == null)
+			{
+				_appServiceConnection = new AppServiceConnection();
+				_appServiceConnection.AppServiceName = "InProcessAppService";
+				_appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
+				var r = await _appServiceConnection.OpenAsync();
+				if (r != AppServiceConnectionStatus.Success)
+				{
+					MessageBox.Show($"Failed: {r}");
+					_appServiceConnection = null;
+					return;
+				}
+			}
+
+			var res = await _appServiceConnection.SendMessageAsync(new ValueSet
+			{
+				["Input"] = inputTextBox.Text,
+			});
+			logTextBlock.Text = res.Message["Result"] as string;
+		}
+
 	}
 }
