@@ -135,8 +135,6 @@ namespace UwpXamFormsApp.UWP
 			var message = args.Request.Message;
 			var input = message["Input"] as string;
 
-			//await MainPage.Current?.SetTextAsync(input);
-
 			var app = UwpXamFormsApp.App.Current;
 			var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
 			var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
