@@ -31,7 +31,8 @@ namespace UwpXamFormsApp
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
-        }
+			containerRegistry.RegisterForNavigation<PageB>();
+		}
 
     }
 }

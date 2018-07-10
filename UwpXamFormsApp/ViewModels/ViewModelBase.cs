@@ -3,7 +3,9 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace UwpXamFormsApp.ViewModels
 {
@@ -42,5 +44,29 @@ namespace UwpXamFormsApp.ViewModels
         {
             
         }
-    }
+	
+		public string GetCurrentPage()
+		{
+			var actionPage = App.Current.MainPage;
+
+			if (actionPage.Navigation != null)
+				actionPage = actionPage.Navigation.NavigationStack.Last();
+
+			return actionPage.GetType().Name;
+		}
+
+		public bool IsCurrentPage
+		{
+			get
+			{
+				return GetType().Name == GetCurrentPage();
+			}
+		}
+
+		public async Task ForceNavigate()
+		{
+			await NavigationService.NavigateAsync("NavigationPage/PageB");
+		}
+
+	}
 }

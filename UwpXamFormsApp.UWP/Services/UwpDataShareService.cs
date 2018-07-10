@@ -7,7 +7,8 @@ using UwpXamFormsApp.Services;
 
 namespace UwpXamFormsApp.UWP.Services
 {
-	public class AppService : IAppService
+	public class UwpDataShareService : IDataShareService
 	{
+		public event RecordMeasurementEventHandler RecordMeasurementReceived;
 	}
 }

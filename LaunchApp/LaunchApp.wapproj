@@ -39,7 +39,7 @@
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <PackageCertificateKeyFile>LaunchApp_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <EntryPointProjectUniqueName>..\UwpApp\UwpApp.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\UwpXamFormsApp.UWP\UwpXamFormsApp.UWP.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -56,7 +56,7 @@
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UwpApp\UwpApp.csproj" />
+    <ProjectReference Include="..\UwpXamFormsApp.UWP\UwpXamFormsApp.UWP.csproj" />
     <ProjectReference Include="..\WpfApp\WpfApp.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />

@@ -137,6 +137,8 @@ namespace UwpXamFormsApp.UWP
 
 			//await MainPage.Current?.SetTextAsync(input);
 
+			var a = UwpXamFormsApp.App.Current;
+
 			// ホスト側より応答確認送信する
 			await args.Request.SendResponseAsync(new ValueSet
 			{
@@ -147,13 +149,11 @@ namespace UwpXamFormsApp.UWP
 			deferral.Complete();
 		}
 
-
 		void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
 		{
 			// システムに完了を通知する
 			_appServiceDeferral?.Complete();
 		}
-
 
 	}
 }
