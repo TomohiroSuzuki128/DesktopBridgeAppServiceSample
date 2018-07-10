@@ -9,6 +9,7 @@ using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,6 +19,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UwpXamFormsApp.Extensions;
 using UwpXamFormsApp.Services;
+using UwpXamFormsApp.Models;
+using Newtonsoft.Json;
 
 namespace UwpXamFormsApp.UWP
 {
@@ -133,12 +136,22 @@ namespace UwpXamFormsApp.UWP
 			var deferral = args.GetDeferral();
 
 			var message = args.Request.Message;
-			var input = message["Input"] as string;
+			var serialized = message["RecordMeasurement"] as string;
 
-			var app = UwpXamFormsApp.App.Current;
-			var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
-			var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
-			contentPage.PerformNavigateCommand(OpeningPage.PageB);
+			var deserialized = JsonConvert.DeserializeObject<RecordMeasurement>(serialized);
+
+
+			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
+
+			// Dispatcher needed to run on UI Thread
+			var dispatcher = coreWindow.CoreWindow.Dispatcher;
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			{
+				var app = UwpXamFormsApp.App.Current;
+				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
+				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+				contentPage.PerformNavigateCommand(OpeningPage.PageB, deserialized);
+			});
 
 			// ホスト側より応答確認送信する
 			await args.Request.SendResponseAsync(new ValueSet

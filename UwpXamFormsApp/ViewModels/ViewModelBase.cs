@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UwpXamFormsApp.Services;
 using Xamarin.Forms;
+using UwpXamFormsApp.Models;
 
 namespace UwpXamFormsApp.ViewModels
 {
@@ -15,7 +16,7 @@ namespace UwpXamFormsApp.ViewModels
     {
         protected INavigationService NavigationService { get; private set; }
 
-        private string _title;
+        string _title;
         public string Title
         {
             get { return _title; }
@@ -70,9 +71,14 @@ namespace UwpXamFormsApp.ViewModels
 			}
 		}
 
-		public async Task ForceNavigate(OpeningPage openingPage)
+		public async Task ForceNavigate(OpeningPage openingPage, RecordMeasurement recordMeasurement)
 		{
-			await NavigationService.NavigateAsync("NavigationPage/"+ openingPage.ToString());
+			var p = new NavigationParameters
+			{
+				{ "recordMeasurement", recordMeasurement }
+			};
+
+			await NavigationService.NavigateAsync("NavigationPage/"+ openingPage.ToString(), p);
 		}
 
 	}

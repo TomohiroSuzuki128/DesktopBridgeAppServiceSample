@@ -6,6 +6,12 @@
 
 	<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 		<Label Text="Page B" />
+
+		<Label Text="{Binding RecordMeasurement.Guid}" />
+		<Label Text="{Binding RecordMeasurement.CardNo}" />
+		<Label Text="{Binding RecordMeasurement.RecordNo}" />
+		<Label Text="{Binding RecordMeasurement.MeasuredAt}" />
+		<Label Text="{Binding RecordMeasurement.result1}" />
 	</StackLayout>
 
 </ContentPage>

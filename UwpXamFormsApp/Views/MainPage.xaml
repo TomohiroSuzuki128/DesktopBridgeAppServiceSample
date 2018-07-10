@@ -6,7 +6,7 @@
 
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <Label Text="Main Page" />
-		<Button Text="Launch" Command="{Binding LaunchCommand}"/>
+		<Button Text="WPFアプリを起動する" Command="{Binding LaunchCommand}"/>
 	</StackLayout>
 
 </ContentPage>
