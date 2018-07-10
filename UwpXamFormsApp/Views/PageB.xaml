@@ -11,7 +11,7 @@
 		<Label Text="{Binding RecordMeasurement.CardNo}" />
 		<Label Text="{Binding RecordMeasurement.RecordNo}" />
 		<Label Text="{Binding RecordMeasurement.MeasuredAt}" />
-		<Label Text="{Binding RecordMeasurement.result1}" />
+		<Label Text="{Binding RecordMeasurement.Result1}" />
 	</StackLayout>
 
 </ContentPage>
