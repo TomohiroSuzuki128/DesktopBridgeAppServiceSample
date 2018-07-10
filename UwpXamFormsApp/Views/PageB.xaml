@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UwpXamFormsApp.Views.PageB"
+             Title="{Binding Title}">
+
+	<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+		<Label Text="Page B" />
+
+		<Label Text="{Binding RecordMeasurement.Guid}" />
+		<Label Text="{Binding RecordMeasurement.CardNo}" />
+		<Label Text="{Binding RecordMeasurement.RecordNo}" />
+		<Label Text="{Binding RecordMeasurement.MeasuredAt}" />
+		<Label Text="{Binding RecordMeasurement.Result1}" />
+	</StackLayout>
+
+</ContentPage>

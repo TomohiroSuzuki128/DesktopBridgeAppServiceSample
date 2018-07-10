@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 	<StackPanel>
-		<TextBox x:Name="inputTextBox" />
-		<Button Content="Send"
+		<Button Content="UWPアプリのページ遷移を行い、肌測定データをUWP側に送る"
                 Click="Button_Click" />
 		<TextBlock x:Name="logTextBlock" />
 	</StackPanel>

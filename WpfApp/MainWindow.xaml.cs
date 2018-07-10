@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
+using Newtonsoft.Json;
+using WpfApp.Models;
 
 namespace WpfApp
 {
@@ -52,10 +54,26 @@ namespace WpfApp
 				}
 			}
 
+			var sample = new RecordMeasurement
+			{
+				Guid = Guid.NewGuid(),
+				CardNo = "CardNo",
+				RecordNo = "RecordNo",
+				MeasuredAt = DateTimeOffset.Now,
+				Result1 = "Result1",
+				Result2 = "Result2",
+				Result3 = "Result3",
+				Result4 = "Result4",
+				Result5 = "Result5",
+			};
+
+			var serialized = JsonConvert.SerializeObject(sample);
+
 			var res = await _appServiceConnection.SendMessageAsync(new ValueSet
 			{
-				["Input"] = inputTextBox.Text,
+				["RecordMeasurement"] = serialized,
 			});
+
 			logTextBlock.Text = res.Message["Result"] as string;
 		}
 
