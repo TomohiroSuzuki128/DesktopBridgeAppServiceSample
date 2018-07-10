@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UwpXamFormsApp.Services;
+using Xamarin.Forms;
 
 namespace UwpXamFormsApp.ViewModels
 {
@@ -44,28 +46,33 @@ namespace UwpXamFormsApp.ViewModels
         {
             
         }
-	
-		public string GetCurrentPage()
+
+		public Page GetCurrentPage()
 		{
 			var actionPage = App.Current.MainPage;
 
 			if (actionPage.Navigation != null)
 				actionPage = actionPage.Navigation.NavigationStack.Last();
 
-			return actionPage.GetType().Name;
+			return actionPage;
+		}
+
+		public string GetCurrentPageName()
+		{
+			return GetCurrentPage().GetType().Name;
 		}
 
 		public bool IsCurrentPage
 		{
 			get
 			{
-				return GetType().Name == GetCurrentPage();
+				return GetType().Name == GetCurrentPageName();
 			}
 		}
 
-		public async Task ForceNavigate()
+		public async Task ForceNavigate(OpeningPage openingPage)
 		{
-			await NavigationService.NavigateAsync("NavigationPage/PageB");
+			await NavigationService.NavigateAsync("NavigationPage/"+ openingPage.ToString());
 		}
 
 	}

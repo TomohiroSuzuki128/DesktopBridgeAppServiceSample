@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UwpXamFormsApp.Extensions;
+using UwpXamFormsApp.Services;
 
 namespace UwpXamFormsApp.UWP
 {
@@ -23,7 +25,7 @@ namespace UwpXamFormsApp.UWP
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
-    {
+	{
 		AppServiceConnection _appServiceConnection;
 		BackgroundTaskDeferral _appServiceDeferral;
 
@@ -103,8 +105,6 @@ namespace UwpXamFormsApp.UWP
             deferral.Complete();
         }
 
-
-
 		protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
 		{
 			base.OnBackgroundActivated(args);
@@ -137,7 +137,10 @@ namespace UwpXamFormsApp.UWP
 
 			//await MainPage.Current?.SetTextAsync(input);
 
-			var a = UwpXamFormsApp.App.Current;
+			var app = UwpXamFormsApp.App.Current;
+			var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
+			var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+			contentPage.PerformNavigateCommand(OpeningPage.PageB);
 
 			// ホスト側より応答確認送信する
 			await args.Request.SendResponseAsync(new ValueSet
