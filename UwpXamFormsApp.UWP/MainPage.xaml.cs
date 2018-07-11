@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UwpXamFormsApp.Services;
 using UwpXamFormsApp.UWP.Services;
+using Windows.UI.ViewManagement;
+using UwpXamFormsApp.UWP.Extensions;
 
 namespace UwpXamFormsApp.UWP
 {
@@ -26,6 +28,8 @@ namespace UwpXamFormsApp.UWP
 			this.InitializeComponent();
 
 			LoadApplication(new UwpXamFormsApp.App(new UwpInitializer()));
+
+			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 		}
 	}
 
@@ -35,6 +39,7 @@ namespace UwpXamFormsApp.UWP
 		{
 			containerRegistry.Register<IDataShareService, UwpDataShareService>();
 			containerRegistry.Register<IWpfLaunchService, UwpWpfLaunchService>();
+			containerRegistry.Register<IViewModeService, UwpViewModeService>();
 		}
 	}
 

@@ -30,6 +30,10 @@ namespace WpfApp
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			WindowState = WindowState.Maximized;
+			WindowStyle = WindowStyle.None;
+			Topmost = true;
 		}
 
 		async void Button_Click(object sender, RoutedEventArgs e)
