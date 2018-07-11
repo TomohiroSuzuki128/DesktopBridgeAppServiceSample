@@ -15,7 +15,6 @@ namespace UwpXamFormsApp.ViewModels
 
 		IDataShareService DataShareService { get; }
 		IWpfLaunchService WpfLaunchService { get; }
-		IViewModeService ViewModeService { get; }
 
 		public ICommand LaunchCommand { get; }
 
@@ -25,12 +24,11 @@ namespace UwpXamFormsApp.ViewModels
 			IWpfLaunchService wpfLaunchService,
 			IViewModeService viewModeService
 			)
-			: base (navigationService)
+			: base (navigationService, viewModeService)
         {
             Title = "Main Page";
 			DataShareService = dataShareService;
 			WpfLaunchService = wpfLaunchService;
-			ViewModeService = viewModeService;
 
 			LaunchCommand = new DelegateCommand(async () =>
 			{

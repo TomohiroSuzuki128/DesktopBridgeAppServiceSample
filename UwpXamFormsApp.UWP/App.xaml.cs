@@ -150,6 +150,7 @@ namespace UwpXamFormsApp.UWP
 				var app = UwpXamFormsApp.App.Current;
 				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
 				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+				contentPage.TryEnterFullScreenMode();
 				contentPage.PerformNavigateCommand(OpeningPage.PageB, deserialized);
 			});
 

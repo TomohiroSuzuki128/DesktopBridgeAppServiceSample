@@ -13,9 +13,9 @@ namespace UwpXamFormsApp.UWP.Extensions
 {
 	public static class WindowsPageExtension
 	{
-		public static void SetWindowingModeAuto(this WindowsPage page)
+		public static void TryEnterFullScreenMode(this WindowsPage page)
 		{
-			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+			ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
 		}
 	}
 }

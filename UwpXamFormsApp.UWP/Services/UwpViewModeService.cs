@@ -17,5 +17,10 @@ namespace UwpXamFormsApp.UWP.Services
 			ApplicationView.GetForCurrentView().ExitFullScreenMode();
 		}
 
+		public void TryEnterFullScreenMode()
+		{
+			ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+		}
+
 	}
 }

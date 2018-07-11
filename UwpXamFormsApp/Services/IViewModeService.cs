@@ -7,6 +7,7 @@ namespace UwpXamFormsApp.Services
 {
 	public interface IViewModeService
 	{
+		void TryEnterFullScreenMode();
 		void ExitFullScreenMode();
 	}
 }

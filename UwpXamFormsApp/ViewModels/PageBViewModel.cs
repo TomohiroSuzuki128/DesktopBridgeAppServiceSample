@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UwpXamFormsApp.Models;
+using UwpXamFormsApp.Services;
 
 namespace UwpXamFormsApp.ViewModels
 {
@@ -18,8 +19,8 @@ namespace UwpXamFormsApp.ViewModels
 			set => SetProperty(ref _recordMeasurement, value);
 		}
 
-		public PageBViewModel(INavigationService navigationService) 
-            : base (navigationService)
+		public PageBViewModel(INavigationService navigationService, IViewModeService viewModeService) 
+            : base (navigationService, viewModeService)
         {
             Title = "Page B";
         }

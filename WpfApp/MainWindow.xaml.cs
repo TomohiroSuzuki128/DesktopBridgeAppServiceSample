@@ -73,12 +73,19 @@ namespace WpfApp
 
 			var serialized = JsonConvert.SerializeObject(sample);
 
+			WindowStyle = WindowStyle.SingleBorderWindow;
+			WindowState = WindowState.Normal;
+
 			var res = await _appServiceConnection.SendMessageAsync(new ValueSet
 			{
 				["RecordMeasurement"] = serialized,
 			});
 
 			logTextBlock.Text = res.Message["Result"] as string;
+
+
+
+
 		}
 
 	}
