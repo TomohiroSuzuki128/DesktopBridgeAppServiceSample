@@ -32,7 +32,7 @@ namespace UwpXamFormsApp.ViewModels
 
 			LaunchCommand = new DelegateCommand(async () =>
 			{
-				wpfLaunchService.LaunchWpfApp();
+				//wpfLaunchService.LaunchWpfApp();
 
 				await System.Threading.Tasks.Task.Delay(500);
 

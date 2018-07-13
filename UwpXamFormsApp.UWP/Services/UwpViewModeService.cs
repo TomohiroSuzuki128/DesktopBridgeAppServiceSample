@@ -14,12 +14,15 @@ namespace UwpXamFormsApp.UWP.Services
 	{
 		public void ExitFullScreenMode()
 		{
-			ApplicationView.GetForCurrentView().ExitFullScreenMode();
+			var currentView = ApplicationView.GetForCurrentView();
+			currentView.ExitFullScreenMode();
+			var success = currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
 		}
 
 		public void TryEnterFullScreenMode()
 		{
 			var currentView = ApplicationView.GetForCurrentView();
+			currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
 			var success = currentView.TryEnterFullScreenMode();
 			System.Diagnostics.Debug.WriteLine(success);
 		}
