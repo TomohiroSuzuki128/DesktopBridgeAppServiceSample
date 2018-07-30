@@ -22,12 +22,20 @@ namespace UwpXamFormsApp.Services
 			}
 		}
 
-		public RecordMeasurement ReadRecordMeasurement(string giud)
+		public RecordMeasurement FindRecordMeasurement(string giud)
 		{
 			var context = Realm.GetInstance();
 			var recordMeasurement = context.Find<RecordMeasurement>(giud);
 
 			return recordMeasurement;
+		}
+
+		public IQueryable<RecordMeasurement> AllRecordMeasurements()
+		{
+			var context = Realm.GetInstance();
+			var recordMeasurements = context.All<RecordMeasurement>();
+
+			return recordMeasurements;
 		}
 
 	}

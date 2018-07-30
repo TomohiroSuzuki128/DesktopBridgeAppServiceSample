@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace UwpXamFormsApp.Services
 	{
 		void SaveRecordMeasurement(RecordMeasurement recordMeasurement);
 
-		RecordMeasurement ReadRecordMeasurement(string giud);
+		RecordMeasurement FindRecordMeasurement(string giud);
+
+		IQueryable<RecordMeasurement> AllRecordMeasurements();
 
 	}
 }

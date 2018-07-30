@@ -43,9 +43,15 @@ namespace UwpXamFormsApp.ViewModels
 			if (record != null)
 				realmService.SaveRecordMeasurement(record);
 
-			RecordMeasurement = realmService.ReadRecordMeasurement(record.Guid);
+			RecordMeasurement = realmService.FindRecordMeasurement(record.Guid);
 
 			Debug.WriteLine("Page B : OnNavigatingTo finish.");
+
+			foreach (var item in realmService.AllRecordMeasurements())
+			{
+				Debug.WriteLine("GUID : " + item.Guid + " RecordNo : " + item.RecordNo);
+			}
+
 		}
 
 	}
