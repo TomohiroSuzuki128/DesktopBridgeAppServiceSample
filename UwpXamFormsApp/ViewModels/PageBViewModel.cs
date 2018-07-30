@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,7 @@ namespace UwpXamFormsApp.ViewModels
 
 		public override void OnNavigatingTo(NavigationParameters parameters)
 		{
+			Debug.WriteLine("Page B : OnNavigatingTo start.");
 			RecordMeasurement record = null;
 			if (parameters.ContainsKey("recordMeasurement"))
 				record = parameters.GetValue<RecordMeasurement>("recordMeasurement");
@@ -41,7 +43,9 @@ namespace UwpXamFormsApp.ViewModels
 			if (record != null)
 				realmService.SaveRecordMeasurement(record);
 
-			recordMeasurement = realmService.ReadRecordMeasurement(record.Guid);
+			RecordMeasurement = realmService.ReadRecordMeasurement(record.Guid);
+
+			Debug.WriteLine("Page B : OnNavigatingTo finish.");
 		}
 
 	}
