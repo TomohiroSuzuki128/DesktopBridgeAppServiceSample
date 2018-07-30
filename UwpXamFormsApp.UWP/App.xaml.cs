@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -136,22 +137,11 @@ namespace UwpXamFormsApp.UWP
 			var deferral = args.GetDeferral();
 
 			var message = args.Request.Message;
-			var serialized = message["RecordMeasurement"] as string;
 
-			var deserialized = JsonConvert.DeserializeObject<RecordMeasurement>(serialized);
-
-
-			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
-
-			// Dispatcher needed to run on UI Thread
-			var dispatcher = coreWindow.CoreWindow.Dispatcher;
-			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-			{
-				var app = UwpXamFormsApp.App.Current;
-				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
-				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
-				contentPage.PerformNavigateCommand(OpeningPage.PageB, deserialized);
-			});
+			if ((string)message["Operation"] == "Data")
+				await ProcessInformation(message);
+			else if ((string)message["Operation"] == "FullScreen")
+				await ProcessFullScreen();
 
 			// ホスト側より応答確認送信する
 			await args.Request.SendResponseAsync(new ValueSet
@@ -167,6 +157,49 @@ namespace UwpXamFormsApp.UWP
 		{
 			// システムに完了を通知する
 			_appServiceDeferral?.Complete();
+		}
+
+		async Task ProcessInformation(ValueSet message)
+		{
+			var serialized = message["RecordMeasurement"] as string;
+			var deserialized = JsonConvert.DeserializeObject<RecordMeasurement>(serialized);
+
+			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
+			var dispatcher = coreWindow.CoreWindow.Dispatcher;
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			{
+				var app = UwpXamFormsApp.App.Current;
+				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
+				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+				contentPage.TryEnterFullScreenMode();
+				contentPage.PerformNavigateCommand(OpeningPage.PageB, deserialized);
+			});
+		}
+
+		async Task ProcessMinimasize()
+		{
+			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
+			var dispatcher = coreWindow.CoreWindow.Dispatcher;
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			{
+				var app = UwpXamFormsApp.App.Current;
+				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
+				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+				contentPage.TryEnterFullScreenMode();
+			});
+		}
+
+		async Task ProcessFullScreen()
+		{
+			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
+			var dispatcher = coreWindow.CoreWindow.Dispatcher;
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			{
+				var app = UwpXamFormsApp.App.Current;
+				var navigationPage = (Xamarin.Forms.NavigationPage)app.MainPage;
+				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
+				contentPage.TryEnterFullScreenMode();
+			});
 		}
 
 	}

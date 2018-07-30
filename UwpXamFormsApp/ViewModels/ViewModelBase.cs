@@ -15,18 +15,21 @@ namespace UwpXamFormsApp.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
+		protected IViewModeService ViewModeService { get; private set; }
 
-        string _title;
+
+		string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
 
-        public ViewModelBase(INavigationService navigationService)
+        public ViewModelBase(INavigationService navigationService, IViewModeService viewModeService)
         {
             NavigationService = navigationService;
-        }
+			ViewModeService = viewModeService;
+		}
 
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
@@ -79,6 +82,11 @@ namespace UwpXamFormsApp.ViewModels
 			};
 
 			await NavigationService.NavigateAsync("NavigationPage/"+ openingPage.ToString(), p);
+		}
+
+		public void TryEnterFullScreenMode()
+		{
+			ViewModeService.TryEnterFullScreenMode();
 		}
 
 	}

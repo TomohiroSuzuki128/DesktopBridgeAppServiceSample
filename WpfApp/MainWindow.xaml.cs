@@ -30,6 +30,10 @@ namespace WpfApp
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			WindowState = WindowState.Maximized;
+			WindowStyle = WindowStyle.None;
+			Topmost = true;
 		}
 
 		async void Button_Click(object sender, RoutedEventArgs e)
@@ -54,9 +58,20 @@ namespace WpfApp
 				}
 			}
 
+			var res0 = await _appServiceConnection.SendMessageAsync(new ValueSet
+			{
+				["Operation"] = "FullScreen",
+			});
+
+			await System.Threading.Tasks.Task.Delay(1000);
+
+			WindowState = WindowState.Minimized;
+			WindowStyle = WindowStyle.None;
+			Topmost = false;
+
 			var sample = new RecordMeasurement
 			{
-				Guid = Guid.NewGuid(),
+				Guid = Guid.NewGuid().ToString(),
 				CardNo = "CardNo",
 				RecordNo = "RecordNo",
 				MeasuredAt = DateTimeOffset.Now,
@@ -69,12 +84,14 @@ namespace WpfApp
 
 			var serialized = JsonConvert.SerializeObject(sample);
 
-			var res = await _appServiceConnection.SendMessageAsync(new ValueSet
+			var res1 = await _appServiceConnection.SendMessageAsync(new ValueSet
 			{
+				["Operation"] = "Data",
 				["RecordMeasurement"] = serialized,
 			});
 
-			logTextBlock.Text = res.Message["Result"] as string;
+			logTextBlock.Text = res1.Message["Result"] as string;
+
 		}
 
 	}

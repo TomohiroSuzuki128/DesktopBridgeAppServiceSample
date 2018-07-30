@@ -21,17 +21,22 @@ namespace UwpXamFormsApp.ViewModels
 		public MainPageViewModel(
 			INavigationService navigationService,
 			IDataShareService dataShareService,
-			IWpfLaunchService wpfLaunchService
-			) 
-            : base (navigationService)
+			IWpfLaunchService wpfLaunchService,
+			IViewModeService viewModeService
+			)
+			: base (navigationService, viewModeService)
         {
             Title = "Main Page";
 			DataShareService = dataShareService;
 			WpfLaunchService = wpfLaunchService;
 
-			LaunchCommand = new DelegateCommand(() =>
+			LaunchCommand = new DelegateCommand(async () =>
 			{
 				wpfLaunchService.LaunchWpfApp();
+
+				await System.Threading.Tasks.Task.Delay(500);
+
+				viewModeService.ExitFullScreenMode();
 			}, () => true);
 
 		}

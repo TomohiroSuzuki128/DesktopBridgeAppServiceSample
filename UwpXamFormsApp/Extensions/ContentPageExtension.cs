@@ -22,5 +22,11 @@ namespace UwpXamFormsApp.Extensions
 			return viewModelBase.GetCurrentPage();
 		}
 
+		public static void TryEnterFullScreenMode(this ContentPage page)
+		{
+			var viewModelBase = (ViewModelBase)page.BindingContext;
+			viewModelBase.TryEnterFullScreenMode();
+		}
+
 	}
 }
