@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Realms;
 
 namespace UwpXamFormsApp.Models
 {
 	[JsonObject("recordMeasurement")]
-	public class RecordMeasurement
+	public class RecordMeasurement : RealmObject
 	{
 		// GUID（一意のキー）
 		[JsonProperty("guid")]
-		public Guid Guid { get; set; }
+		[PrimaryKey]
+		public string Guid { get; set; }
 
 		// CardNo（会員番号）
 		[JsonProperty("cardNo")]

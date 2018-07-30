@@ -12,23 +12,36 @@ namespace UwpXamFormsApp.ViewModels
 {
     public class PageBViewModel : ViewModelBase, INavigationAware
 	{
-		RecordMeasurement _recordMeasurement;
+		IRealmService realmService;
+		RecordMeasurement recordMeasurement;
 		public RecordMeasurement RecordMeasurement
 		{
-			get => _recordMeasurement;
-			set => SetProperty(ref _recordMeasurement, value);
+			get => recordMeasurement;
+			set => SetProperty(ref recordMeasurement, value);
 		}
 
-		public PageBViewModel(INavigationService navigationService, IViewModeService viewModeService) 
+		public PageBViewModel(
+			INavigationService navigationService, 
+			IViewModeService viewModeService,
+			IRealmService realmService
+			) 
             : base (navigationService, viewModeService)
         {
             Title = "Page B";
-        }
+			this.realmService = realmService;
+		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)
 		{
+			RecordMeasurement record = null;
 			if (parameters.ContainsKey("recordMeasurement"))
-				RecordMeasurement = parameters.GetValue<RecordMeasurement>("recordMeasurement");
+				record = parameters.GetValue<RecordMeasurement>("recordMeasurement");
+
+			// 実験のためわざと一度Realmに保存してから読み出ししている。
+			if (record != null)
+				realmService.SaveRecordMeasurement(record);
+
+			recordMeasurement = realmService.ReadRecordMeasurement(record.Guid);
 		}
 
 	}

@@ -37,9 +37,10 @@ namespace UwpXamFormsApp.UWP
 	{
 		public void RegisterTypes(IContainerRegistry containerRegistry)
 		{
-			containerRegistry.Register<IDataShareService, UwpDataShareService>();
-			containerRegistry.Register<IWpfLaunchService, UwpWpfLaunchService>();
-			containerRegistry.Register<IViewModeService, UwpViewModeService>();
+			containerRegistry.RegisterSingleton<IDataShareService, UwpDataShareService>();
+			containerRegistry.RegisterSingleton<IWpfLaunchService, UwpWpfLaunchService>();
+			containerRegistry.RegisterSingleton<IViewModeService, UwpViewModeService>();
+			containerRegistry.RegisterSingleton<IRealmService, RealmService>();
 		}
 	}
 

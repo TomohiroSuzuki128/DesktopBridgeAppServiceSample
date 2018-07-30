@@ -40,12 +40,12 @@
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <PackageCertificateKeyFile>LaunchApp_TemporaryKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\UwpXamFormsApp.UWP\UwpXamFormsApp.UWP.csproj</EntryPointProjectUniqueName>
+    <PackageCertificateThumbprint>C878024383DC8B839FA82FAB2B120D57BC2A5F8F</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="LaunchApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\LockScreenLogo.scale-200.png" />
@@ -54,6 +54,7 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
+    <None Include="LaunchApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UwpXamFormsApp.UWP\UwpXamFormsApp.UWP.csproj" />

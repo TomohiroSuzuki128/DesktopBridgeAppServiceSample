@@ -71,7 +71,7 @@ namespace WpfApp
 
 			var sample = new RecordMeasurement
 			{
-				Guid = Guid.NewGuid(),
+				Guid = Guid.NewGuid().ToString(),
 				CardNo = "CardNo",
 				RecordNo = "RecordNo",
 				MeasuredAt = DateTimeOffset.Now,

@@ -12,7 +12,7 @@ namespace WpfApp.Models
 	{
 		// GUID（一意のキー）
 		[JsonProperty("guid")]
-		public Guid Guid { get; set; }
+		public string Guid { get; set; }
 
 		// CardNo（会員番号）
 		[JsonProperty("cardNo")]
