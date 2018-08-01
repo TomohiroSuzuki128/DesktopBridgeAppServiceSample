@@ -132,14 +132,17 @@ namespace UwpXamFormsApp.UWP
 			_appServiceDeferral?.Complete();
 		}
 
+		// WPFアプリからの指示の受信
 		async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
 		{
 			var deferral = args.GetDeferral();
 
 			var message = args.Request.Message;
 
+			// WPFから受け取るメッセージに処理の種別と内容を設定してあるので
+			// 種別に応じて処理を行う
 			if ((string)message["Operation"] == "Data")
-				await ProcessInformation(message);
+				await ProcessNortifyInformation(message);
 			else if ((string)message["Operation"] == "FullScreen")
 				await ProcessFullScreen();
 
@@ -159,7 +162,11 @@ namespace UwpXamFormsApp.UWP
 			_appServiceDeferral?.Complete();
 		}
 
-		async Task ProcessInformation(ValueSet message)
+		// フルスクリーンの処理の実体はViewModelにDIされたサービスで行うため、
+		// 拡張メソッド経由でViewModelにアクセスして実行。
+		// 同様にパラーメータ付きのページ遷移も
+		// 拡張メソッド経由でViewModelにアクセスして実行。
+		async Task ProcessNortifyInformation(ValueSet message)
 		{
 			var serialized = message["RecordMeasurement"] as string;
 			var deserialized = JsonConvert.DeserializeObject<RecordMeasurement>(serialized);
@@ -189,6 +196,8 @@ namespace UwpXamFormsApp.UWP
 			});
 		}
 
+		// フルスクリーンの処理の実体はViewModelにDIされたサービスで行うため、
+		// 拡張メソッド経由でViewModelにアクセスして実行。
 		async Task ProcessFullScreen()
 		{
 			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
