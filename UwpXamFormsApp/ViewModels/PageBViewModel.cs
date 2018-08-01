@@ -15,6 +15,7 @@ namespace UwpXamFormsApp.ViewModels
 	{
 		IRealmService realmService;
 		RecordMeasurement recordMeasurement;
+
 		public RecordMeasurement RecordMeasurement
 		{
 			get => recordMeasurement;

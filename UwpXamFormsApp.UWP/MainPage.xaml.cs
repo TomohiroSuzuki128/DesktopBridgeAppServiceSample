@@ -33,11 +33,18 @@ namespace UwpXamFormsApp.UWP
 		}
 	}
 
+    /// <summary>
+    /// PlatformInitializer
+    /// </summary>
+    /// <remarks>
+    /// ここで各サービスのインターフェースとサービスの実装を登録するとコンストラクタインジェクションされる
+    /// </remarks>
 	public class UwpInitializer : IPlatformInitializer
 	{
 		public void RegisterTypes(IContainerRegistry containerRegistry)
 		{
-			containerRegistry.RegisterSingleton<IDataShareService, UwpDataShareService>();
+            // RegisterSingletonで登録するとシングルトンになる
+            containerRegistry.RegisterSingleton<IDataShareService, UwpDataShareService>();
 			containerRegistry.RegisterSingleton<IWpfLaunchService, UwpWpfLaunchService>();
 			containerRegistry.RegisterSingleton<IViewModeService, UwpViewModeService>();
 			containerRegistry.RegisterSingleton<IRealmService, RealmService>();

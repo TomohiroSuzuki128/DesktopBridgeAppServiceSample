@@ -8,6 +8,12 @@ using UwpXamFormsApp.Models;
 
 namespace UwpXamFormsApp.Extensions
 {
+	/// <summary>
+	/// ContentPageExtension
+	/// </summary>
+	/// <remarks>
+	/// ContentPageは組込みのクラスのため、拡張メソッドで機能を追加する
+	/// </remarks>
 	public static class ContentPageExtension
 	{
 		public static async void PerformNavigateCommand(this ContentPage page, OpeningPage openingPage, RecordMeasurement recordMeasurement)
