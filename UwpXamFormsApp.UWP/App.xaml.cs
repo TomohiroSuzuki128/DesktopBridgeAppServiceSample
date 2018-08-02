@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace UwpXamFormsApp.UWP
     /// </summary>
     sealed partial class App : Application
 	{
+		public static new App Current => (App)Application.Current;
+
 		AppServiceConnection _appServiceConnection;
 		BackgroundTaskDeferral _appServiceDeferral;
 
@@ -209,6 +212,28 @@ namespace UwpXamFormsApp.UWP
 				var contentPage = (Xamarin.Forms.ContentPage)navigationPage.CurrentPage;
 				contentPage.TryEnterFullScreenMode();
 			});
+		}
+
+		public async Task SendTextAsync()
+		{
+			Debug.WriteLine("UWP : App : SendTextAsync()");
+
+			if (_appServiceConnection == null)
+			{
+				Debug.WriteLine("UWP : App : SendTextAsync()  _appServiceConnection == null");
+				return;
+			}
+			else
+			{
+				Debug.WriteLine("UWP : App : SendTextAsync()  _appServiceConnection != null");
+			}
+
+			await _appServiceConnection.SendMessageAsync(new ValueSet
+			{
+				["Text"] = "UWPから送ってます。",
+			});
+			Debug.WriteLine("UWP : App : SendMessageAsync()");
+
 		}
 
 	}

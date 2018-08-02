@@ -100,7 +100,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\UwpViewModeService.cs" />
-    <Compile Include="Services\UwpWpfLaunchService.cs" />
+    <Compile Include="Services\UwpWpfInteractionService.cs" />
     <Compile Include="Services\UwpDataShareService.cs" />
   </ItemGroup>
   <ItemGroup>

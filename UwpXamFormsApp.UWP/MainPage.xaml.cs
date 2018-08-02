@@ -45,7 +45,7 @@ namespace UwpXamFormsApp.UWP
 		{
             // RegisterSingletonで登録するとシングルトンになる
             containerRegistry.RegisterSingleton<IDataShareService, UwpDataShareService>();
-			containerRegistry.RegisterSingleton<IWpfLaunchService, UwpWpfLaunchService>();
+			containerRegistry.RegisterSingleton<IWpfInteractionService, UwpWpfInteractionService>();
 			containerRegistry.RegisterSingleton<IViewModeService, UwpViewModeService>();
 			containerRegistry.RegisterSingleton<IRealmService, RealmService>();
 		}

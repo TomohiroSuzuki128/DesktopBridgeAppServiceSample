@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace UwpXamFormsApp.Services
 {
-	public interface IWpfLaunchService
+	public interface IWpfInteractionService
 	{
 		void LaunchWpfApp();
+
+		Task SendTextAsync();
 	}
 
 }
