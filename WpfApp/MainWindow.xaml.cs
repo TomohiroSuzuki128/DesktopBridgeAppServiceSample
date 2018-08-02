@@ -44,6 +44,7 @@ namespace WpfApp
 			if (_appServiceConnection == null)
 			{
 				// IDisposable なのでメモリリークするので製品版では注意が必要
+				// using 使うように直す。　UWPからWPFへのデータ通信も記述する
 				_appServiceConnection = new AppServiceConnection();
 				
 				// Here, we use the app service name defined in the app service provider's Package.appxmanifest file in the <Extension> section.
