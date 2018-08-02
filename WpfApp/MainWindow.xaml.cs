@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,27 +37,36 @@ namespace WpfApp
 			Topmost = true;
 		}
 
+		// AppServiceについてはここに情報がある
+		// https://docs.microsoft.com/ja-jp/windows/uwp/launch-resume/how-to-create-and-consume-an-app-service
+		async Task<bool> ConnectAsync()
+		{
+			if (_appServiceConnection != null)
+				return true;
+
+			var appServiceConnection = new AppServiceConnection
+			{
+				AppServiceName = "InProcessAppService",
+				PackageFamilyName = Package.Current.Id.FamilyName,
+			};
+			appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+
+			var r = await appServiceConnection.OpenAsync() == AppServiceConnectionStatus.Success;
+
+			if (r)
+				_appServiceConnection = appServiceConnection;
+
+			return r;
+		}
+
+
 		async void Button_Click(object sender, RoutedEventArgs e)
 		{
-			// AppServiceについてはここに情報がある
-			// https://docs.microsoft.com/ja-jp/windows/uwp/launch-resume/how-to-create-and-consume-an-app-service
 
-			if (_appServiceConnection == null)
+			if (!(await ConnectAsync()))
 			{
-				// IDisposable なのでメモリリークするので製品版では注意が必要
-				// using 使うように直す。　UWPからWPFへのデータ通信も記述する
-				_appServiceConnection = new AppServiceConnection();
-				
-				// Here, we use the app service name defined in the app service provider's Package.appxmanifest file in the <Extension> section.
-				_appServiceConnection.AppServiceName = "InProcessAppService";
-				_appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
-				var r = await _appServiceConnection.OpenAsync();
-				if (r != AppServiceConnectionStatus.Success)
-				{
-					MessageBox.Show($"Failed: {r}");
-					_appServiceConnection = null;
-					return;
-				}
+				MessageBox.Show($"Failed");
+				return;
 			}
 
 			var res0 = await _appServiceConnection.SendMessageAsync(new ValueSet
@@ -93,6 +103,29 @@ namespace WpfApp
 
 			logTextBlock.Text = res1.Message["Result"] as string;
 
+		}
+
+
+		void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+		{
+			void setText()
+			{
+				WindowState = WindowState.Maximized;
+				WindowStyle = WindowStyle.None;
+				Topmost = true;
+
+				uwpTextBlock.Text = (string)args.Request.Message["Text"];
+			}
+
+			if (Dispatcher.CheckAccess())
+				setText();
+			else
+				Dispatcher.Invoke(() => setText());
+		}
+
+		protected async void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			await ConnectAsync();
 		}
 
 	}

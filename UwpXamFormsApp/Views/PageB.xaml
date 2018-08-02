@@ -12,6 +12,10 @@
 		<Label Text="{Binding RecordMeasurement.RecordNo}" />
 		<Label Text="{Binding RecordMeasurement.MeasuredAt}" />
 		<Label Text="{Binding RecordMeasurement.Result1}" />
+
+		<Button Text="WPFアプリにデータを送る" Command="{Binding SendTextCommand}"/>
+
+
 	</StackLayout>
 
 </ContentPage>

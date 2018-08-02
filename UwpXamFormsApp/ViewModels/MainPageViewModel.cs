@@ -14,25 +14,25 @@ namespace UwpXamFormsApp.ViewModels
 	{
 
 		IDataShareService DataShareService { get; }
-		IWpfLaunchService WpfLaunchService { get; }
+		IWpfInteractionService WpfInteractionService { get; }
 
 		public ICommand LaunchCommand { get; }
 
 		public MainPageViewModel(
 			INavigationService navigationService,
 			IDataShareService dataShareService,
-			IWpfLaunchService wpfLaunchService,
+			IWpfInteractionService wpfInteractionService,
 			IViewModeService viewModeService
 			)
 			: base (navigationService, viewModeService)
         {
             Title = "Main Page";
 			DataShareService = dataShareService;
-			WpfLaunchService = wpfLaunchService;
+			WpfInteractionService = wpfInteractionService;
 
 			LaunchCommand = new DelegateCommand(async () =>
 			{
-				wpfLaunchService.LaunchWpfApp();
+				WpfInteractionService.LaunchWpfApp();
 
 				await System.Threading.Tasks.Task.Delay(500);
 
