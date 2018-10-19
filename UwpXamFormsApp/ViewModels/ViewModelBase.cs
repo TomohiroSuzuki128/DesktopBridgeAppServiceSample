@@ -15,10 +15,10 @@ namespace UwpXamFormsApp.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
-		protected IViewModeService ViewModeService { get; private set; }
+        protected IViewModeService ViewModeService { get; private set; }
 
 
-		string _title;
+        string _title;
         public string Title
         {
             get { return _title; }
@@ -28,66 +28,66 @@ namespace UwpXamFormsApp.ViewModels
         public ViewModelBase(INavigationService navigationService, IViewModeService viewModeService)
         {
             NavigationService = navigationService;
-			ViewModeService = viewModeService;
-		}
+            ViewModeService = viewModeService;
+        }
 
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
-            
+
         }
 
         public virtual void OnNavigatedTo(NavigationParameters parameters)
         {
-            
+
         }
 
         public virtual void OnNavigatingTo(NavigationParameters parameters)
         {
-            
+
         }
 
         public virtual void Destroy()
         {
-            
+
         }
 
-		public Page GetCurrentPage()
-		{
-			var actionPage = App.Current.MainPage;
+        public Page GetCurrentPage()
+        {
+            var actionPage = App.Current.MainPage;
 
-			if (actionPage.Navigation != null)
-				actionPage = actionPage.Navigation.NavigationStack.Last();
+            if (actionPage.Navigation != null)
+                actionPage = actionPage.Navigation.NavigationStack.Last();
 
-			return actionPage;
-		}
+            return actionPage;
+        }
 
-		public string GetCurrentPageName()
-		{
-			return GetCurrentPage().GetType().Name;
-		}
+        public string GetCurrentPageName()
+        {
+            return GetCurrentPage().GetType().Name;
+        }
 
-		public bool IsCurrentPage
-		{
-			get
-			{
-				return GetType().Name == GetCurrentPageName();
-			}
-		}
+        public bool IsCurrentPage
+        {
+            get
+            {
+                return GetType().Name == GetCurrentPageName();
+            }
+        }
 
-		public async Task ForceNavigate(OpeningPage openingPage, RecordMeasurement recordMeasurement)
-		{
-			var p = new NavigationParameters
-			{
-				{ "recordMeasurement", recordMeasurement }
-			};
+        public async Task ForceNavigate(OpeningPage openingPage, SampleRecord recordMeasurement)
+        {
+            var p = new NavigationParameters
+            {
+                { "sampleRecord", recordMeasurement }
+            };
 
-			await NavigationService.NavigateAsync("NavigationPage/"+ openingPage.ToString(), p);
-		}
+            await NavigationService.NavigateAsync("NavigationPage/" + openingPage.ToString(), p);
+        }
 
-		public void TryEnterFullScreenMode()
-		{
-			ViewModeService.TryEnterFullScreenMode();
-		}
+        public void TryEnterFullScreenMode()
+        {
+            ViewModeService.TryEnterFullScreenMode();
+        }
 
-	}
+    }
 }

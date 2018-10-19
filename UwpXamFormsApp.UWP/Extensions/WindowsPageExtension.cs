@@ -11,11 +11,11 @@ using Xamarin.Forms.Platform.UWP;
 
 namespace UwpXamFormsApp.UWP.Extensions
 {
-	public static class WindowsPageExtension
-	{
-		public static void TryEnterFullScreenMode(this WindowsPage page)
-		{
-			ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
-		}
-	}
+    public static class WindowsPageExtension
+    {
+        public static void TryEnterFullScreenMode(this WindowsPage page)
+        {
+            ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+        }
+    }
 }

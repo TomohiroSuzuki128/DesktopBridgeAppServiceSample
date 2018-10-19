@@ -7,13 +7,13 @@ using UwpXamFormsApp.Models;
 
 namespace UwpXamFormsApp.Services
 {
-	public interface IRealmService
-	{
-		void SaveRecordMeasurement(RecordMeasurement recordMeasurement);
+    public interface IRealmService
+    {
+        void SaveSampleRecord(SampleRecord sampleRecord);
 
-		RecordMeasurement FindRecordMeasurement(string giud);
+        SampleRecord FindSampleRecord(string giud);
 
-		IQueryable<RecordMeasurement> AllRecordMeasurements();
+        IQueryable<SampleRecord> AllSampleRecords();
 
-	}
+    }
 }

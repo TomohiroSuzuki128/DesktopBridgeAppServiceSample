@@ -21,17 +21,17 @@ using UwpXamFormsApp.UWP.Extensions;
 
 namespace UwpXamFormsApp.UWP
 {
-	public sealed partial class MainPage
-	{
-		public MainPage()
-		{
-			this.InitializeComponent();
+    public sealed partial class MainPage
+    {
+        public MainPage()
+        {
+            this.InitializeComponent();
 
-			LoadApplication(new UwpXamFormsApp.App(new UwpInitializer()));
+            LoadApplication(new UwpXamFormsApp.App(new UwpInitializer()));
 
-			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
-		}
-	}
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+        }
+    }
 
     /// <summary>
     /// PlatformInitializer
@@ -40,15 +40,14 @@ namespace UwpXamFormsApp.UWP
     /// ここで各サービスのインターフェースとサービスの実装を登録するとコンストラクタインジェクションされる
     /// </remarks>
 	public class UwpInitializer : IPlatformInitializer
-	{
-		public void RegisterTypes(IContainerRegistry containerRegistry)
-		{
+    {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
             // RegisterSingletonで登録するとシングルトンになる
-            containerRegistry.RegisterSingleton<IDataShareService, UwpDataShareService>();
-			containerRegistry.RegisterSingleton<IWpfInteractionService, UwpWpfInteractionService>();
-			containerRegistry.RegisterSingleton<IViewModeService, UwpViewModeService>();
-			containerRegistry.RegisterSingleton<IRealmService, RealmService>();
-		}
-	}
+            containerRegistry.RegisterSingleton<IWpfInteractionService, UwpWpfInteractionService>();
+            containerRegistry.RegisterSingleton<IViewModeService, UwpViewModeService>();
+            containerRegistry.RegisterSingleton<IRealmService, RealmService>();
+        }
+    }
 
 }
