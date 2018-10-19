@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace UwpXamFormsApp.Services
 {
-	public interface IViewModeService
-	{
-		void TryEnterFullScreenMode();
-		void ExitFullScreenMode();
-	}
+    public interface IViewModeService
+    {
+        void TryEnterFullScreenMode();
+        void ExitFullScreenMode();
+    }
 }

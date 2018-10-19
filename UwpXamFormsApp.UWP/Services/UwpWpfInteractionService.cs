@@ -9,17 +9,17 @@ using UwpXamFormsApp.UWP;
 
 namespace UwpXamFormsApp.UWP.Services
 {
-	public class UwpWpfInteractionService : IWpfInteractionService
-	{
-		public async void LaunchWpfApp()
-		{
-			await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
-		}
+    public class UwpWpfInteractionService : IWpfInteractionService
+    {
+        public async void LaunchWpfApp()
+        {
+            await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+        }
 
-		public async Task SendTextAsync()
-		{
-			Debug.WriteLine("UWP : UwpWpfInteractionService : SendTextAsync()");
-			await App.Current.SendTextAsync();
-		}
-	}
+        public async Task SendTextAsync()
+        {
+            Debug.WriteLine("UWP : UwpWpfInteractionService : SendTextAsync()");
+            await App.Current.SendTextAsync();
+        }
+    }
 }

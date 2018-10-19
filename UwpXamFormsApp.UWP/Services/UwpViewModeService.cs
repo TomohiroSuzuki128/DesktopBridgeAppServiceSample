@@ -10,22 +10,22 @@ using Windows.UI.Xaml;
 
 namespace UwpXamFormsApp.UWP.Services
 {
-	public class UwpViewModeService : IViewModeService
-	{
-		public void ExitFullScreenMode()
-		{
-			var currentView = ApplicationView.GetForCurrentView();
-			currentView.ExitFullScreenMode();
-			var success = currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
-		}
+    public class UwpViewModeService : IViewModeService
+    {
+        public void ExitFullScreenMode()
+        {
+            var currentView = ApplicationView.GetForCurrentView();
+            currentView.ExitFullScreenMode();
+            var success = currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
+        }
 
-		public void TryEnterFullScreenMode()
-		{
-			var currentView = ApplicationView.GetForCurrentView();
-			currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
-			var success = currentView.TryEnterFullScreenMode();
-			System.Diagnostics.Debug.WriteLine(success);
-		}
+        public void TryEnterFullScreenMode()
+        {
+            var currentView = ApplicationView.GetForCurrentView();
+            currentView.TryResizeView(new Size { Width = currentView.VisibleBounds.Width, Height = currentView.VisibleBounds.Height });
+            var success = currentView.TryEnterFullScreenMode();
+            System.Diagnostics.Debug.WriteLine(success);
+        }
 
-	}
+    }
 }

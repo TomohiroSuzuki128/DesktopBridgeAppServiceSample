@@ -74,7 +74,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\RecordMeasurement.cs" />
+    <Compile Include="Models\SampleRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

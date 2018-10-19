@@ -21,112 +21,108 @@ using WpfApp.Models;
 
 namespace WpfApp
 {
-	/// <summary>
-	/// MainWindow.xaml の相互作用ロジック
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		AppServiceConnection _appServiceConnection;
+    /// <summary>
+    /// MainWindow.xaml の相互作用ロジック
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        AppServiceConnection _appServiceConnection;
 
-		public MainWindow()
-		{
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-			WindowState = WindowState.Maximized;
-			WindowStyle = WindowStyle.None;
-			Topmost = true;
-		}
+            WindowState = WindowState.Maximized;
+            WindowStyle = WindowStyle.None;
+            Topmost = true;
+        }
 
-		// AppServiceについてはここに情報がある
-		// https://docs.microsoft.com/ja-jp/windows/uwp/launch-resume/how-to-create-and-consume-an-app-service
-		async Task<bool> ConnectAsync()
-		{
-			if (_appServiceConnection != null)
-				return true;
+        // AppServiceについてはここに情報がある
+        // https://docs.microsoft.com/ja-jp/windows/uwp/launch-resume/how-to-create-and-consume-an-app-service
+        async Task<bool> ConnectAsync()
+        {
+            if (_appServiceConnection != null)
+                return true;
 
-			var appServiceConnection = new AppServiceConnection
-			{
-				AppServiceName = "InProcessAppService",
-				PackageFamilyName = Package.Current.Id.FamilyName,
-			};
-			appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+            var appServiceConnection = new AppServiceConnection
+            {
+                AppServiceName = "InProcessAppService",
+                PackageFamilyName = Package.Current.Id.FamilyName,
+            };
+            appServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
 
-			var r = await appServiceConnection.OpenAsync() == AppServiceConnectionStatus.Success;
+            var r = await appServiceConnection.OpenAsync() == AppServiceConnectionStatus.Success;
 
-			if (r)
-				_appServiceConnection = appServiceConnection;
+            if (r)
+                _appServiceConnection = appServiceConnection;
 
-			return r;
-		}
-
-
-		async void Button_Click(object sender, RoutedEventArgs e)
-		{
-
-			if (!(await ConnectAsync()))
-			{
-				MessageBox.Show($"Failed");
-				return;
-			}
-
-			var res0 = await _appServiceConnection.SendMessageAsync(new ValueSet
-			{
-				["Operation"] = "FullScreen",
-			});
-
-			await System.Threading.Tasks.Task.Delay(1000);
-
-			WindowState = WindowState.Minimized;
-			WindowStyle = WindowStyle.None;
-			Topmost = false;
-
-			var sample = new RecordMeasurement
-			{
-				Guid = Guid.NewGuid().ToString(),
-				CardNo = "CardNo",
-				RecordNo = "RecordNo",
-				MeasuredAt = DateTimeOffset.Now,
-				Result1 = "Result1",
-				Result2 = "Result2",
-				Result3 = "Result3",
-				Result4 = "Result4",
-				Result5 = "Result5",
-			};
-
-			var serialized = JsonConvert.SerializeObject(sample);
-
-			var res1 = await _appServiceConnection.SendMessageAsync(new ValueSet
-			{
-				["Operation"] = "Data",
-				["RecordMeasurement"] = serialized,
-			});
-
-			logTextBlock.Text = res1.Message["Result"] as string;
-
-		}
+            return r;
+        }
 
 
-		void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
-		{
-			void setText()
-			{
-				WindowState = WindowState.Maximized;
-				WindowStyle = WindowStyle.None;
-				Topmost = true;
+        async void Button_Click(object sender, RoutedEventArgs e)
+        {
 
-				uwpTextBlock.Text = (string)args.Request.Message["Text"];
-			}
+            if (!(await ConnectAsync()))
+            {
+                MessageBox.Show($"Failed");
+                return;
+            }
 
-			if (Dispatcher.CheckAccess())
-				setText();
-			else
-				Dispatcher.Invoke(() => setText());
-		}
+            var res0 = await _appServiceConnection.SendMessageAsync(new ValueSet
+            {
+                ["Operation"] = "FullScreen",
+            });
 
-		protected async void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-			await ConnectAsync();
-		}
+            await System.Threading.Tasks.Task.Delay(1000);
 
-	}
+            WindowState = WindowState.Minimized;
+            WindowStyle = WindowStyle.None;
+            Topmost = false;
+
+            var sample = new SampleRecord
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Data1 = "Data1",
+                Data2 = "Data2",
+                Data3 = "Data3",
+                Data4 = "Data4",
+                Data5 = "Data5",
+            };
+
+            var serialized = JsonConvert.SerializeObject(sample);
+
+            var res1 = await _appServiceConnection.SendMessageAsync(new ValueSet
+            {
+                ["Operation"] = "Data",
+                ["SampleRecord"] = serialized,
+            });
+
+            logTextBlock.Text = res1.Message["Result"] as string;
+        }
+
+
+        void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+        {
+            void setText()
+            {
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
+                Topmost = true;
+
+                uwpTextBlock.Text = (string)args.Request.Message["Text"];
+            }
+
+            if (Dispatcher.CheckAccess())
+                setText();
+            else
+                Dispatcher.Invoke(() => setText());
+        }
+
+        protected async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            await ConnectAsync();
+        }
+
+    }
 }

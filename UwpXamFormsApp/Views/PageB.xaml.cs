@@ -8,11 +8,11 @@ using Xamarin.Forms.Xaml;
 
 namespace UwpXamFormsApp.Views
 {
-	public partial class PageB : ContentPage
-	{
-		public PageB ()
-		{
-			InitializeComponent ();
-		}
-	}
+    public partial class PageB : ContentPage
+    {
+        public PageB()
+        {
+            InitializeComponent();
+        }
+    }
 }

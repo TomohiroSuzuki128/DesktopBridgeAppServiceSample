@@ -171,8 +171,8 @@ namespace UwpXamFormsApp.UWP
 		// 拡張メソッド経由でViewModelにアクセスして実行。
 		async Task ProcessNortifyInformation(ValueSet message)
 		{
-			var serialized = message["RecordMeasurement"] as string;
-			var deserialized = JsonConvert.DeserializeObject<RecordMeasurement>(serialized);
+			var serialized = message["SampleRecord"] as string;
+			var deserialized = JsonConvert.DeserializeObject<SampleRecord>(serialized);
 
 			var coreWindow = Windows.ApplicationModel.Core.CoreApplication.MainView;
 			var dispatcher = coreWindow.CoreWindow.Dispatcher;

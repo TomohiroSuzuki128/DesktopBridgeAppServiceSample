@@ -10,36 +10,32 @@ using UwpXamFormsApp.Services;
 
 namespace UwpXamFormsApp.ViewModels
 {
-	public class MainPageViewModel : ViewModelBase
-	{
+    public class MainPageViewModel : ViewModelBase
+    {
+        IWpfInteractionService WpfInteractionService { get; }
 
-		IDataShareService DataShareService { get; }
-		IWpfInteractionService WpfInteractionService { get; }
+        public ICommand LaunchCommand { get; }
 
-		public ICommand LaunchCommand { get; }
-
-		public MainPageViewModel(
-			INavigationService navigationService,
-			IDataShareService dataShareService,
-			IWpfInteractionService wpfInteractionService,
-			IViewModeService viewModeService
-			)
-			: base (navigationService, viewModeService)
+        public MainPageViewModel(
+            INavigationService navigationService,
+            IWpfInteractionService wpfInteractionService,
+            IViewModeService viewModeService
+            )
+            : base(navigationService, viewModeService)
         {
             Title = "Main Page";
-			DataShareService = dataShareService;
-			WpfInteractionService = wpfInteractionService;
+            WpfInteractionService = wpfInteractionService;
 
-			LaunchCommand = new DelegateCommand(async () =>
-			{
-				WpfInteractionService.LaunchWpfApp();
+            LaunchCommand = new DelegateCommand(async () =>
+            {
+                WpfInteractionService.LaunchWpfApp();
 
-				await System.Threading.Tasks.Task.Delay(500);
+                await System.Threading.Tasks.Task.Delay(500);
 
-				viewModeService.ExitFullScreenMode();
-			}, () => true);
+                viewModeService.ExitFullScreenMode();
+            }, () => true);
 
-		}
+        }
 
-	}
+    }
 }
