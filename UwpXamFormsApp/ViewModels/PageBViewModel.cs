@@ -34,7 +34,7 @@ namespace UwpXamFormsApp.ViewModels
             )
             : base(navigationService, viewModeService)
         {
-            Title = "Page B";
+            Title = "UWP アプリ Page B";
             RealmService = realmService;
             WpfInteractionService = wpfInteractionService;
 
@@ -53,18 +53,20 @@ namespace UwpXamFormsApp.ViewModels
             if (parameters.ContainsKey("sampleRecord"))
                 record = parameters.GetValue<SampleRecord>("sampleRecord");
 
-            // 実験のためわざと一度Realmに保存してから読み出ししている。
-            if (record != null)
-                RealmService.SaveSampleRecord(record);
+            SampleRecord = record;
 
-            SampleRecord = RealmService.FindSampleRecord(record.Guid);
+            //// 実験のためわざと一度Realmに保存してから読み出ししている。
+            //if (record != null)
+            //    RealmService.SaveSampleRecord(record);
 
-            Debug.WriteLine("Page B : OnNavigatingTo finish.");
+            //SampleRecord = RealmService.FindSampleRecord(record.Guid);
 
-            foreach (var item in RealmService.AllSampleRecords())
-            {
-                Debug.WriteLine("GUID : " + item.Guid + " Data1 : " + item.Data1);
-            }
+            //Debug.WriteLine("Page B : OnNavigatingTo finish.");
+
+            //foreach (var item in RealmService.AllSampleRecords())
+            //{
+            //    Debug.WriteLine("GUID : " + item.Guid + " Data1 : " + item.Data1);
+            //}
 
         }
 

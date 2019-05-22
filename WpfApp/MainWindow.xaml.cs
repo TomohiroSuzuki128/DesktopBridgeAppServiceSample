@@ -33,7 +33,7 @@ namespace WpfApp
             InitializeComponent();
 
             WindowState = WindowState.Maximized;
-            WindowStyle = WindowStyle.None;
+            //WindowStyle = WindowStyle.None;
             Topmost = true;
         }
 
@@ -74,7 +74,7 @@ namespace WpfApp
                 ["Operation"] = "FullScreen",
             });
 
-            await System.Threading.Tasks.Task.Delay(1000);
+            await System.Threading.Tasks.Task.Delay(500);
 
             WindowState = WindowState.Minimized;
             WindowStyle = WindowStyle.None;
@@ -98,7 +98,7 @@ namespace WpfApp
                 ["SampleRecord"] = serialized,
             });
 
-            logTextBlock.Text = res1.Message["Result"] as string;
+            //logTextBlock.Text = res1.Message["Result"] as string;
         }
 
 

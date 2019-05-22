@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="WPF アプリ MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="450" Width="800" >
-	<Button Content="UWPアプリのページ遷移を行い、肌測定データをUWP側に送る"
-                Click="Button_Click" VerticalAlignment="Center" />
+	<Button Content="UWPアプリの Page B へページ遷移を行い、データをUWP側に送る"
+                Click="Button_Click" VerticalAlignment="Center" Height="50" FontSize="15" />
 		<TextBlock x:Name="logTextBlock" VerticalAlignment="Center" />
 		<TextBlock x:Name="uwpTextBlock" VerticalAlignment="Center" />
 	</StackPanel>

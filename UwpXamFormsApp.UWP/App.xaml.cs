@@ -230,7 +230,7 @@ namespace UwpXamFormsApp.UWP
 
 			await _appServiceConnection.SendMessageAsync(new ValueSet
 			{
-				["Text"] = "UWPから送ってます。",
+				["Text"] = "UWPからデータが送られました。",
 			});
 			Debug.WriteLine("UWP : App : SendMessageAsync()");
 
