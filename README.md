@@ -6,13 +6,13 @@
 
 
 ## Visual Studio では以下を必ずインストールしてください。
-- C++ によるデスクトップ開発　
- - Windows 10 SDK (10.0.17134.0)
- - Windows 10 SDK (10.0.16299.0)
- - Windows 10 SDK (10.0.15063.0)
- - Windows 10 SDK (10.0.14393.0)
- - Windows 10 SDK (10.0.10586.0)
- - Windows 10 SDK (10.0.10240.0)
+* C++ によるデスクトップ開発の
+  * Windows 10 SDK (10.0.17134.0)
+  * Windows 10 SDK (10.0.16299.0)
+  * Windows 10 SDK (10.0.15063.0)
+  * Windows 10 SDK (10.0.14393.0)
+  * Windows 10 SDK (10.0.10586.0)
+  * Windows 10 SDK (10.0.10240.0)
 
 
 # サンプルアプリの概要
