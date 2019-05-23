@@ -7,12 +7,13 @@
 	<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 		<Label Text="Page B" />
 
-		<Label Text="{Binding RecordMeasurement.Guid}" />
-		<Label Text="{Binding RecordMeasurement.Result1}" />
-		<Label Text="{Binding RecordMeasurement.Result1}" />
-		<Label Text="{Binding RecordMeasurement.Result1}" />
-		<Label Text="{Binding RecordMeasurement.Result1}" />
-
+		<Label Text="{Binding SampleRecord.Guid}" />
+        <Label Text="{Binding SampleRecord.Data1}" />
+        <Label Text="{Binding SampleRecord.Data2}" />
+        <Label Text="{Binding SampleRecord.Data3}" />
+        <Label Text="{Binding SampleRecord.Data4}" />
+        <Label Text="{Binding SampleRecord.Data5}" />
+        
 		<Button Text="WPFアプリにデータを送る" Command="{Binding SendTextCommand}"/>
 
 

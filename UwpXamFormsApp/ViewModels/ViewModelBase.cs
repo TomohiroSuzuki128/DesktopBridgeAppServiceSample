@@ -74,11 +74,11 @@ namespace UwpXamFormsApp.ViewModels
             }
         }
 
-        public async Task ForceNavigate(OpeningPage openingPage, SampleRecord recordMeasurement)
+        public async Task ForceNavigate(OpeningPage openingPage, SampleRecord sampleRecord)
         {
             var p = new NavigationParameters
             {
-                { "sampleRecord", recordMeasurement }
+                { "sampleRecord", sampleRecord }
             };
 
             await NavigationService.NavigateAsync("NavigationPage/" + openingPage.ToString(), p);

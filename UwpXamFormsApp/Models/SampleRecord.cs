@@ -19,7 +19,7 @@ namespace UwpXamFormsApp.Models
         public string Data1 { get; set; }
 
         [JsonProperty("data2")]
-        public string Datat2 { get; set; }
+        public string Data2 { get; set; }
 
         [JsonProperty("data3")]
         public string Data3 { get; set; }

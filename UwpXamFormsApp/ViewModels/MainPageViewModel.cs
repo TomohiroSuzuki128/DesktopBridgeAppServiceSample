@@ -23,7 +23,7 @@ namespace UwpXamFormsApp.ViewModels
             )
             : base(navigationService, viewModeService)
         {
-            Title = "Main Page";
+            Title = "UWP アプリ Main Page";
             WpfInteractionService = wpfInteractionService;
 
             LaunchCommand = new DelegateCommand(async () =>
