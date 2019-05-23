@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UwpXamFormsApp.Views.PageB"
+             Title="{Binding Title}">
+
+	<StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+		<Label Text="Page B" />
+
+		<Label Text="{Binding SampleRecord.Guid}" />
+        <Label Text="{Binding SampleRecord.Data1}" />
+        <Label Text="{Binding SampleRecord.Data2}" />
+        <Label Text="{Binding SampleRecord.Data3}" />
+        <Label Text="{Binding SampleRecord.Data4}" />
+        <Label Text="{Binding SampleRecord.Data5}" />
+        
+		<Button Text="WPFアプリにデータを送る" Command="{Binding SendTextCommand}"/>
+
+
+	</StackLayout>
+
+</ContentPage>
